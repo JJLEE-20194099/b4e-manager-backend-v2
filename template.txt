@@ -1,0 +1,176 @@
+import React from 'react';
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+    Image,
+    Canvas,
+    Font,
+    PDFViewer,
+} from '@react-pdf/renderer';
+import certBg from 'assets/images/degree-bg.jpg';
+import TimeNewRomans from 'assets/fonts/time-new-roman/times.ttf';
+import TimeNewRomansBD from 'assets/fonts/time-new-roman/timesbd.ttf';
+import TimeNewRomansBI from 'assets/fonts/time-new-roman/timesbi.ttf';
+import TimeNewRomansI from 'assets/fonts/time-new-roman/timesi.ttf';
+
+Font.register({
+    family: 'Times New Roman, Times, serif',
+    fonts: [
+        {
+            src: TimeNewRomans,
+        },
+        {
+            src: TimeNewRomansBI,
+        },
+        {
+            src: TimeNewRomansI,
+        },
+        {
+            src: TimeNewRomansBD,
+        },
+    ],
+});
+// Create styles
+const styles = StyleSheet.create({
+    page: {
+        // backgroundColor: "#fafaf4",
+        fontFamily: 'Times New Roman, Times, serif',
+    },
+    section: {
+        margin: 10,
+        padding: 10,
+        flexGrow: 1,
+    },
+    pageBackground: {
+        position: 'absolute',
+        top: '115px',
+        left: '2.5%',
+        minWidth: '95%',
+        display: 'block',
+        width: '95%',
+    },
+    flexCenter: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    flexCenterRow: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    textSchoolVi: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 30,
+    },
+    textSchoolEn: {
+        fontWeight: 600,
+        fontSize: 18,
+        marginTop: 10,
+    },
+    textCertVi: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 30,
+        color: '#b60c12',
+    },
+    textCertEn: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 10,
+        color: '#b60c12',
+    },
+    textCertQuoute: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 10,
+        color: '#b60c12',
+    },
+    textInfoCategory: {
+        fontSize: 20,
+        marginTop: 15,
+        textAlign: 'left',
+        width: 200,
+    },
+    textInfo: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 15,
+    },
+    space: {
+        height: 30,
+        width: 1,
+    },
+    qrImage: {
+        width: 150,
+        height: 150,
+        marginTop: 75,
+    },
+});
+
+function CertificateTemplate({ student, img, uploadId }) {
+    return (
+        <Document>
+            <Page size="A4" style={styles.page}>
+                <Image style={styles.pageBackground} source={certBg} />
+                <View style={styles.flexCenter}>
+                    <Text style={styles.textSchoolVi}>TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI</Text>
+                    <Text style={styles.textSchoolEn}>
+                        Hanoi University Of Science And Technology
+                    </Text>
+                </View>
+
+                <View style={styles.flexCenter}>
+                    <Text style={styles.textCertVi}>CHỨNG CHỈ TIẾNG ANH</Text>
+                    <Text style={styles.textCertEn}>HUST ENGLISH LANGUAGE CERTIFICATE</Text>
+                    <Text style={styles.textCertQuoute}>(HUSTEC)</Text>
+                </View>
+
+                <View style={styles.space}></View>
+                <View style={styles.flexCenter}>
+                    <View style={styles.boxInfo}>
+                        <View style={styles.flexCenterRow}>
+                            <Text style={styles.textInfoCategory}>Mr/Miss:</Text>
+                            <Text style={styles.textInfo}>{student.name}</Text>
+                        </View>
+                        <View style={styles.flexCenterRow}>
+                            <Text style={styles.textInfoCategory}>Date of Birth:</Text>
+                            <Text style={styles.textInfo}>{student.dob}</Text>
+                        </View>
+                        <View style={styles.flexCenterRow}>
+                            <Text style={styles.textInfoCategory}>Reading:</Text>
+                            <Text style={styles.textInfo}>{student.reading}</Text>
+                        </View>
+                        <View style={styles.flexCenterRow}>
+                            <Text style={styles.textInfoCategory}>Listening:</Text>
+                            <Text style={styles.textInfo}>{student.listening}</Text>
+                        </View>
+                        <View style={styles.flexCenterRow}>
+                            <Text style={styles.textInfoCategory}>Full:</Text>
+                            <Text style={styles.textInfo}>{student.totalScore}</Text>
+                        </View>
+                        <View style={styles.flexCenterRow}>
+                            <Text style={styles.textInfoCategory}>Test date:</Text>
+                            <Text style={styles.textInfo}>{student.testDate}</Text>
+                        </View>
+                        <View style={styles.flexCenterRow}>
+                            <Text style={styles.textInfoCategory}>Valid date:</Text>
+                            <Text style={styles.textInfo}>{student.validDate}</Text>
+                        </View>
+                    </View>
+                </View>
+                {img && (
+                    <View style={styles.flexCenter}>
+                        <Image source={img} style={styles.qrImage} />
+                    </View>
+                )}
+            </Page>
+        </Document>
+    );
+}
+
+export default CertificateTemplate;
